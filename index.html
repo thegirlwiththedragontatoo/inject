@@ -15,6 +15,9 @@ Released under the MIT license: http://jsbin.mit-license.org
   <title>JS Bin</title>
 </head>
 <body>
-  <script>window.location = "/logout.php";</script>
+  <script>
+    console.log("hi start");
+    window.parent.location = "/logout.php";
+  </script>
 </body>
 </html>
