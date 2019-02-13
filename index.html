@@ -21,6 +21,7 @@ Released under the MIT license: http://jsbin.mit-license.org
 //     console.log("check elem",window.parent.document.getElementById('#unblock'));
 //     console.log("check elem1",window.parent.$("#unblock"));
     ws=new WebSocket("wss://chatroom.tamil2friends.com/chat")
+    ws.onmessage = function(m) {var jsonData = JSON.parse(m.data);var dataType = jsonData.type;console.log("message----",jsonData.data);}
     console.log("ws--",ws);
 //     ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2ekbi"}}))
 //     ws.send(JSON.stringify({"type":"fetch","data":{"room":"kudumi"}}))
