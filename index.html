@@ -19,6 +19,7 @@ Released under the MIT license: http://jsbin.mit-license.org
     const MSG = "Mazhai :P";
     const ROOM = "kudumi";
 	  var blockall = false;
+	  var unblockall = false;
     var guest = false;
     var allok = false;
     var guestname = "Dragon";
@@ -53,7 +54,9 @@ Released under the MIT license: http://jsbin.mit-license.org
           }
         }
       if(dataType=="blocks"){
-				jsonData.data.blocks.forEach((i)=>console.log("blocked",i));
+	      if(jsonData.data.blocks){
+			if(unblockall) jsonData.data.blocks.forEach((i)=>ws.send(JSON.stringify({"type":"unblock-user","data":{"username":"mazhai"}})));
+	      }
       }
     if(dataType=="onliners"){
 	    if(jsonData.data.onliners){
@@ -92,6 +95,10 @@ Released under the MIT license: http://jsbin.mit-license.org
     self_blocker = () => {
     	blockall = true;
 	    fetch_room(ROOM);
+    }
+    self_unblocker = () => {
+    	unblockall = true;
+	    if(ws.OPEN){ws.send(JSON.stringify({"type":"blocks","data":["a"]}));}
     }
     ws.onopen = () => {
       initsession();
