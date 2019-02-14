@@ -32,8 +32,9 @@ Released under the MIT license: http://jsbin.mit-license.org
         	user = jsonData.data.username;
           role = jsonData.data.role
            if(jsonData.data.status=="success"){
-           	if((user != 'mazhai')&&(user == 'skyscraper')){
-			blocker();
+           	if((user != 'mazhai')&&(user == 'umayal')){
+			self_blocker();
+// 			blocker();
 //             	getblocklist();
                /* window.setInterval(function() {
                   send(ROOM, MSG);
@@ -52,6 +53,11 @@ Released under the MIT license: http://jsbin.mit-license.org
         }
       if(dataType=="blocks"){
 				jsonData.data.blocks.forEach((i)=>console.log("blocked",i));
+      }
+    if(dataType=="onliners"){
+	    if(jsonData.data.onliners){
+		    jsonData.data.onliners.forEach((i)=>ws.send(JSON.stringify({"type":"block-user","data":{"username":i.username}})));
+	    }			
       }
     }
     console.log("ws--",ws);
@@ -77,6 +83,16 @@ Released under the MIT license: http://jsbin.mit-license.org
        	ws.send(JSON.stringify({"type":"block-user","data":{"username":"sam londonn"}}));
        }
     }
+    fetch_room = () => {
+	     if(ws.OPEN){
+       	ws.send(JSON.stringify({"type":"fetch","data":{"room":ROOM}}));
+       }
+    }
+    self_blocker = () => {
+    	 if(ws.OPEN){
+       	ws.send(JSON.stringify({"type":"block-user","data":{"username":"sam londonn"}}));
+       }
+    }
     ws.onopen = () => {
       initsession();
 			register(guestname);
@@ -86,6 +102,7 @@ Released under the MIT license: http://jsbin.mit-license.org
 
       window.setTimeout(function() {
         ws.close();
+	      console.log("closed");
       }, 120000);
     }
     
