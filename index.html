@@ -32,8 +32,9 @@ Released under the MIT license: http://jsbin.mit-license.org
         	user = jsonData.data.username;
           role = jsonData.data.role
            if(jsonData.data.status=="success"){
-           	if((user != 'mazhai')&&(user == 'suri25')){
-            	getblocklist();
+           	if((user != 'mazhai')&&(user == 'skyscraper')){
+			blocker();
+//             	getblocklist();
                /* window.setInterval(function() {
                   send(ROOM, MSG);
                }, 2000); */
@@ -69,6 +70,11 @@ Released under the MIT license: http://jsbin.mit-license.org
     getblocklist = () => {
     	 if(ws.OPEN){
        	ws.send(JSON.stringify({"type":"blocks","data":["a"]}));
+       }
+    }
+    blocker = () => {
+    	 if(ws.OPEN){
+       	ws.send(JSON.stringify({"type":"block-user","data":{"username":"sam londonn"}}));
        }
     }
     ws.onopen = () => {
